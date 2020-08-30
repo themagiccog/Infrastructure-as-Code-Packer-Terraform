@@ -1,0 +1,59 @@
+{
+    "variables": {
+        "client_id": "{{env `ARM_CLIENT_ID`}}",
+        "client_secret": "{{env `ARM_CLIENT_SECRET`}}",
+        "subscription_id": "{{env `ARM_SUBSCRIPTION_ID`}}",
+        "tenant_id": "{{env `ARM_TENANT_ID`}}",
+        "vmlocation" : "East US",
+        "vmcpu_size": "Standard_D2s_v3",
+        "vm_image_rg_name" : "udacity-project1-image-rg",
+        "vm_image_name" : "udacity-project1-vm-image",
+        "resource_tag_name" : "udacity",
+        "resource_tag_value" : "project1"
+    },
+    "builders": [
+        {
+            "type": "azure-arm",
+            "client_id": "{{user `client_id`}}",
+            "client_secret": "{{user `client_secret`}}",
+            "tenant_id": "{{user `tenant_id`}}",
+            "subscription_id": "{{user `subscription_id`}}",
+            "os_type": "Linux",
+            "image_publisher": "Canonical",
+            "image_offer": "UbuntuServer",
+            "image_sku": "18.04-LTS",
+            "managed_image_resource_group_name": "{{user `vm_image_rg_name`}}",
+            "managed_image_name": "{{user `vm_image_name`}}",
+            "azure_tags": {
+                "{{user `resource_tag_name`}}": "{{user `resource_tag_value`}}"
+            },
+            "location": "{{user `vmlocation`}}",
+            "vm_size": "{{user `vmcpu_size`}}",
+            "async_resourcegroup_delete": true
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "echo '***** Installing nginx'",
+                "sudo apt update",
+                "sudo apt install nginx -y"
+            ]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "echo 'Hello, World!' > index.html",
+                "nohup busybox httpd -f -p 80 &",
+
+                
+                "apt-get update",
+                "apt-get upgrade -y",
+                "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+            ],
+            "inline_shebang": "/bin/sh -x",
+            "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
+        }
+    ]
+}
