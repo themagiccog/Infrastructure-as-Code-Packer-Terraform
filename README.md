@@ -4,11 +4,13 @@
 
 ## Overview
 
-The aim of this project is to use the DevOps tool, Infrastructure-as-Code to deploy a Web Server as a Virtual Machine. We will use the Provisioning tool, Terraform, to provision the Virtual Machine (VM). The server template tool, Packer, will be used to develop a server template that will be used by Terraform. To provision the VM, the infrastructure should have the necessary resources in place in other for the VM to run. Some of the client's major requirements are as shown below:
-Scalability: The VMs should be in an Availability Set (with a minimum and default of 2 VMs running with the capacity to increase the VM count to 5).
-Security: The Virtual Network should be in such a way where the VMs in the Network should not be accessible by the Internet but should be accessible within the VMs in the subnet.
-Efficiency: The Virtual Network should have a Load Balancer to distribute the work load to the VMs available in the Network.
-Disks: The client has also requested that there are Managed Disks attached for each VM deployed.
+The aim of this project is to use the DevOps tool, Infrastructure-as-Code to deploy a Web Server as a Virtual Machine. We will use the Provisioning tool, Terraform, to provision the Virtual Machine (VM). The server template tool, Packer, will be used to develop a server template that will be used by Terraform. To provision the VM, the infrastructure should have the necessary resources in place in other for the VM to run. 
+
+### _Some of the client's major requirements are as shown below:_
+_**Scalability:**_ The VMs should be in an Availability Set (with a minimum and default of 2 VMs running with the capacity to increase the VM count to 5).
+_**Security:**_ The Virtual Network should be in such a way where the VMs in the Network should not be accessible by the Internet but should be accessible within the VMs in the subnet.
+_**Efficiency:**_ The Virtual Network should have a Load Balancer to distribute the work load to the VMs available in the Network.
+_**Disks:**_ The client has also requested that there are Managed Disks attached for each VM deployed.
 
 At the end of this project we should have a TerraForm and Packer template that can be used to deploy VMs of the same requirements as need.
 ![##### *Azure Web Server Architecture (Deny Access from Internet)*Azure WebServer Deny Internet to VMs](https://engrcog.com/wp-content/uploads/2020/09/Automate-WebServerno-bastion.jpeg)
@@ -32,12 +34,16 @@ Please visit: [https://learn.hashicorp.com/tutorials/terraform/install-cli](http
 BEfore we begin, we will take a look at all the resources that is required to meet the client specifications. When creating a VM in a cloud enviroment, the following resources are typically created along side it. The first this we need is to create a **Resource Group**. A resource group will contain all the resources necessary to deploy these VMs.
 A Virtual Machine needs to be in a Network to be effective, so a **Virtual Network (VNet)** is required when a VM is spurn (a way of saying created). To be in a Network, the VM must have **Network Interface Cards (NIC)** so this resource is created. The VMs will need to be segregated within a Network to restrict access to those who don't need to be on it. It is recommended that Virtual Networks have subnets so that the Network can be managed better. This is the reason why we will need a **Subnet** resource. Chances are that we want to be able to access our VMs from the Internet at some point in time, this means our network will require a **Public IP address**. We will also need a **Network Security Gateway** resouce that will house polices on communication rules within the Network. The client also specified a need for a **Load Balancer** so we will need that resource and finally, we will need a *Managed Disk** to be attached to the VM. This Managed Disk is different from the OS disk that is created by default alongside the VM.
 A recap of the resources we need to create a VM so far:
-Resource Group
-Virtual Machine
-Virtual Network (the Subnet resource is included in VNet resource)
-Public IP Address
-Network Security Gateway
-Network Interface Card
+
+ - Resource Group 
+ - Virtual Machine 
+ - Virtual Network _(the Subnet resource
+   is included in VNet resource)_   
+ - Public IP Address  
+ - Network Security Gateway
+ - Network Interface Card
+
+_**Note:** More on resources below._
 
 ## Resource Tagging Policy
 One of the requirements from the client was to ensure that any resources created was tagged appropriately. So we need to Create a policy definition for this purpose and assign the policy to our scope of work - which for this project will be applied to the subscription.
