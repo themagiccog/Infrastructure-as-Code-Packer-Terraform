@@ -11,19 +11,26 @@ Efficiency: The Virtual Network should have a Load Balancer to distribute the wo
 Disks: The client has also requested that there are Managed Disks attached for each VM deployed.
 
 At the end of this project we should have a TerraForm and Packer template that can be used to deploy VMs of the same requirements as need.
+![##### *Azure Web Server Architecture (Deny Access from Internet)*Azure WebServer Deny Internet to VMs](https://engrcog.com/wp-content/uploads/2020/09/Automate-WebServerno-bastion.jpeg)
+
 
 ## Packer 
-What is Packer? Parker is one of the DevOps tools used to generate Server Templates for automated Deployment. These server templates can also be configured to include the application and software as required by the project. Packer tools are scripted with JSON. The Packer template is made up of 3 key key attributes: The Variable attribute, the Builders attribute and the Provisioners Attribute. The Variable attributes is used to hold variables that can be used in the building of the server template. These variables can also bind to variables stored in the shell environment. The Builder attribute is used to identify the properties of the Server to be built, including the type of image (WIndows or Linux), size of CPU, etc. The last attribute we are going to talk about is the Provisioner Attribute. This attribute is used to deploy applications after the Image has being built. Here, you can give instructions to run an application, Install a Web SErver, etc. For this project we will just be creating a little html file with the output "Hello, World".
+What is Packer? Parker is one of the DevOps tools used to generate Server Templates for automated Deployment. These server templates can also be configured to include the application and software as required by the project. Packer tools are scripted with JSON. The Packer template is made up of 3 key key attributes: The Variable attribute, the Builders attribute and the Provisioners Attribute. The Variable attributes is used to hold variables that can be used in the building of the server template. These variables can also bind to variables stored in the shell environment. The Builder attribute is used to identify the properties of the Server to be built, including the type of image (Windows or Linux), size of CPU, etc. The last attribute we are going to talk about is the Provisioner Attribute. This attribute is used to deploy applications after the Image has being built. Here, you can give instructions to run an application, Install a Web Server, etc. For this project we will just be creating a little html file with the output "Hello, World".
+
+#### Packer Installation and Setup
+Please visit: [https://learn.hashicorp.com/tutorials/packer/getting-started-install](https://learn.hashicorp.com/tutorials/packer/getting-started-install) to view the Packer Installation and Setup up process for your machine.
 
 ## TerraForm
 Terraform is a DevOps Provisioning tool that can be used to automate the creation of Resources needed for a Cloud environment. TerraForm tools are written with a propitiatory language called HCL. HCL is a script language similar to JSON. The HCL script is usually contains attributes that tell the script what to do. The 3 major attributes are Provider, Resource and Data. The Provider Attribute is used to identify the type of Cloud environment being utilized, in this case it is Azure. The Resource Attributes are used as a template to generate resources in the Cloud environment for example, Virtual Networks and Managed Disks.
 
-## Packer and TerraForm Installation and Setup
+#### TerraForm Installation and Setup
+Please visit: [https://learn.hashicorp.com/tutorials/terraform/install-cli](https://learn.hashicorp.com/tutorials/terraform/install-cli) to view the Packer Installation and Setup up process for your machine.
 
 
-## Identifying Resourses
+
+## Identifying Resources
 BEfore we begin, we will take a look at all the resources that is required to meet the client specifications. When creating a VM in a cloud enviroment, the following resources are typically created along side it. The first this we need is to create a **Resource Group**. A resource group will contain all the resources necessary to deploy these VMs.
-A Virtual Machine needs to be in a Network to be effective, so a **Virtual Network (VNet)** is required when a VM is spurn (a way of saying created). To be in a Network, the VM must have **Network Interface Cards (NIC)** so this resource is created. The VMs will need to be segregated within a Network to restrict access to those who dont need to be on it. It is recommented that Virtual Networks have subnets so that the Network can be managed better. This is the reason why we will need a **Subnet** resource. Chances are that we want to be able to access our VMs from the Internet at some point in time, this means our network will require a **Public IP address**. We will also need a **Network Security Gateway** resouce that will house polices on communication rules within the Network. The client also specified a need for a **Load Balancer** so we will need that resource and finally, we will need a *Managed Disk** to be attached to the VM. This Managed Disk is different from the OS disk that is created by default alonside the VM.
+A Virtual Machine needs to be in a Network to be effective, so a **Virtual Network (VNet)** is required when a VM is spurn (a way of saying created). To be in a Network, the VM must have **Network Interface Cards (NIC)** so this resource is created. The VMs will need to be segregated within a Network to restrict access to those who don't need to be on it. It is recommended that Virtual Networks have subnets so that the Network can be managed better. This is the reason why we will need a **Subnet** resource. Chances are that we want to be able to access our VMs from the Internet at some point in time, this means our network will require a **Public IP address**. We will also need a **Network Security Gateway** resouce that will house polices on communication rules within the Network. The client also specified a need for a **Load Balancer** so we will need that resource and finally, we will need a *Managed Disk** to be attached to the VM. This Managed Disk is different from the OS disk that is created by default alongside the VM.
 A recap of the resources we need to create a VM so far:
 Resource Group
 Virtual Machine
@@ -33,23 +40,19 @@ Network Security Gateway
 Network Interface Card
 
 ## Resource Tagging Policy
-One of the requirements from the client was to ensure that any resources created was tagged appropiatly. So we need to Create a policy definition for this purpose and assign the policy to our scope of work - which for this project will be applied to the subscription.
+One of the requirements from the client was to ensure that any resources created was tagged appropriately. So we need to Create a policy definition for this purpose and assign the policy to our scope of work - which for this project will be applied to the subscription.
 
 ## Security Policy
-By Default, when a network resource is created, there is always an NSG (Network Segurity Group) deployed with it. The NSG contains a group of rules or policies telling the network how to send or recieve information. By deafault, it has some set of rules that restrict communication with the internet on all ports. Only the ports specified in the resource creation stage is allowed. In addition to this policy, the client has requested that she doesnt want any communications from the internet in the network, only communication between the VMs in the network.
+By Default, when a network resource is created, there is always an NSG (Network Security Group) deployed with it. The NSG contains a group of rules or policies telling the network how to send or receive information. By deafault, it has some set of rules that restrict communication with the internet on all ports. Only the ports specified in the resource creation stage is allowed. In addition to this policy, the client has requested that she doesn't want any communications from the internet in the network, only communication between the VMs in the network.
 
 
 
+## Azure CLI /Bash/ PowerShell
 
-## Begin
+Install the latest version of Powershell 7, and run it. Ensure you have installed the latest CLI module to start with as we will be using the this for this task. 
+_**Note:** You can also utilize Bash and the codes are similar._
 
-
-
-### Azure CLI
-
-Install the latest version of Powershell 7, and run it. Ensure you have installed the latest CLI module to start with as we will be using the this for this task.
-
-First, we log on to Azure. Enter the following on PowerShell:
+First, we log on to Azure. Enter the following on PowerShell/Bash:
 
 ```PowerShell
 > az login
@@ -94,7 +97,7 @@ Subscription_2          	yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
 Now that we have logged into our Azure Account using the CLI, we will create a policy on the account.
 The Policy should be in place to ensure that when resources are created, they have a tag name. We use JSON to create a policy template which will be used to define our policy.
 We want to store the name of our policy definition in the CLI Environment. This way we can just make reference to it as we go along. 
-_**Note:** It is good practise to do this, we need to avoid repeatitions as often as possible. We will keep track of all the environment variables as we proceed with this task._
+_**Note:** It is good practice to do this, we need to avoid repetitions as often as possible. We will keep track of all the environment variables as we proceed with this task._
 In the CLI, we will save our Subscription ID (as you had copied above) and Policy definition name, using the variable names ```subs_id``` and ```policy_def``` respectively, in the Environment with the following code:
 ```
 > $subs_id='xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
@@ -221,7 +224,7 @@ Then run the following command:
 ```PowerShell
 \policy> az policy assignment create -n 'tagging_policy' --policy $policy_def --params tagparam.json
 ```
-output
+>*output similar to:*
 ```PowerShell
 {
   "description": null,
@@ -280,7 +283,7 @@ rs_tag_value	|{$prefix}		| This holds the Tag Value for resources
 vm_username		| azureterrauser| This holds the username for the VM
 vm_password		| xxxxxxxxxxxxx	| This holds the password for the user
 
-In PowerShell, enter the following commands to ensure we have these variables in the environment as we will be accessing them when we build the Packer and Terraform templates:
+In PowerShell, enter the following commands to ensure we have these variables in the environment as we will be accessing them when we build the Packer and TerraForm templates:
 ```PowerShell
 > $prefix='myproject'
 > $rg_name="$prefix-rg"
@@ -293,12 +296,12 @@ In PowerShell, enter the following commands to ensure we have these variables in
 ```
 
 ### Create a Resource Group
-The first thing we need to do before creating any resource on Azure is to create a resourc group. Resource Groups are containers that hold all the resources together.
+The first thing we need to do before creating any resource on Azure is to create a resource group. Resource Groups are containers that hold all the resources together.
 To create the resource group, we use the command  ```az group create``` as shown below:
 ```PowerShell
 az group create -n $rg_name -l $rg_location
 ```
-Output:
+>*output similar to:*
 ```PowerShell
 {
   "id": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/myproject-rg",
@@ -327,7 +330,7 @@ To create a quick Service Principal using defaults, let use run the command as s
 ```PowerShell
 az ad sp create-for-rbac --query "{Client_ID: appId, Client_Secret : password, Tenant_ID: tenant}"
 ```
-output:
+>*output similar to:*
 ```PowerShell
 Creating a role assignment under the scope of "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d"
   Retrying role assignment creation: 1/36
@@ -395,7 +398,7 @@ Builders Features	| Comments
 To use variables from template, Packer uses the following format  ```"{{user `ZZZZZ`}}"``` where ```ZZZZZ``` is the variable defined in the variable parameter. 
 
 ####  Provisioner
-The Provisioner is used to install an application when the image as being deployed in the new VM. For this task, it will just be an HTML file with the content ```"Hello, World!"```. Visit the Packer GIthub for more examples and templates.
+The Provisioner is used to install an application when the image as being deployed in the new VM. For this task, it will just be an HTML file with the content ```"Hello, World!"```. Visit the Packer GitHub for more examples and templates.
 
 
 ####  Deploy Template
@@ -457,7 +460,7 @@ _**Note:** Before you do, verify that there is already a resource group created 
 ```Powershell
 \packer> packer build server.json
 ```
-output:
+>*output similar to:*
 ```PowerShell
 packer build server.json
 azure-arm: output will be in this color.
@@ -534,7 +537,7 @@ As seen in the output above, the Package Image has been created and is located i
 ```Bash
 > az resource list --resource-group $rg_name --query "[].{Resource_Name: name, Resource_Type:type}" -o table
 ```
-Output:
+>*output similar to:*
 ```Bash
 Resource_Name      Resource_Type
 -----------------  ------------------------
@@ -542,12 +545,86 @@ myproject-vmimage  Microsoft.Compute/images
 ```
 
 ## TerraForm
-Terraform uses 2 main files to hold its template. A main file, which we will name as ```main.tf``` and a file for variables, which we will call ```var.tf```. TerraForm templates are generated with a properietory language called HCL. HCL language uses the ```.tf``` suffix on its files.
+TerraForm uses 2 main files to hold its template. A main file, which we will name as ```main.tf``` and a file for variables, which we will call ```var.tf```. TerraForm templates are generated with a proprietary language called HCL. HCL language uses the ```.tf``` suffix on its files.
 
 The main file, ```main.tf```, is used to house parameters responsible for building resources.
 The variables file, ```var.tf```, is used to hold variables that will be used by main file. 
 
 _**Note:** For more information on TerraForm Template structure, please visit:_ [https://www.terraform.io/docs/providers/azurerm/index.html](https://www.terraform.io/docs/providers/azurerm/index.html)
+
+### Variables: 
+
+And the following variables will be used.
+Variable	| Comments 
+--------------------| ------------------------ 
+vmcount 			| Number of VMs to be deployed (between 2 and 5) _**(command-line)**_
+prefix			| The prefix which should be used for all resources in this example _**(environment)**_
+location|The location where resources are created _**(environment)**_
+tagKey|Resource Tag Key _**(environment)**_
+tagValue|Resource Tag Value _**(environment)**_
+vmimage|This is the name of the image created _**(environment)**_
+vmimagerg|This is the name of the Resource Group that image was created _**(environment)**_
+username| Username of VM _**(environment)**_
+password| Password of User _**(environment)**_
+
+TerraForm can read values in the environment, provided the have the following syntax: ```TF_VAR_XXXXX``` where ```XXXXX``` is the variable name.
+
+So we will create the variables shown above in the environment as follows:
+```Bash
+> $env:TF_VAR_prefix=$prefix
+> $env:TF_VAR_location=$rg_location
+> $env:TF_VAR_tagKey=$rs_tag_key
+> $env:TF_VAR_tagValue=$rs_tag_value
+> $env:TF_VAR_vmimage=$image_name
+> $env:TF_VAR_vmimagerg=$rg_name
+> $env:TF_VAR_username=$vm_username
+> $env:TF_VAR_password=$vm_password
+```
+Create a file named ```var.tf```, if you haven't done so already, and copy the following code to it.
+```HCL
+variable  "vmcount" {
+		type =  number
+		description =  "Number of VM to create?"
+		validation {
+		condition =  var.vmcount > 1 && var.vmcount < 6
+		error_message =  "The VM count should be between 2 and 5 (Default is 2. Max is 5)."
+		}
+}
+  
+variable  "prefix" {
+		description =  "The prefix which should be used for all resources in this example"
+}  
+
+variable  "location" {
+		description =  "The location where resources are created"
+}
+
+variable  "tagKey" {
+		description =  "Resource Tag Key"
+}
+
+variable  "tagValue" {
+		description =  "Resource Tag Value"
+}  
+
+variable  "vmimage" {
+		description =  "This is the name of the image created"
+}  
+
+variable  "vmimagerg" {
+		description =  "This is the name of the Resource Group that image was created"
+} 
+
+variable  "username" {
+		description =  "Enter Username"
+} 
+
+variable  "password" {
+		description =  "Enter Password"
+}
+```
+Notice that we has environment values set for all but the ```vmcount``` variable. This is because we intend to make the user be prompted to specify how many VMs to create. There is a validation logic on the variable that ensures that no more than 5 VMs are created at one time with the tool and no fewer than 2.
+
 
 ### Resources: 
 
@@ -555,10 +632,424 @@ We need to build resources to meet the requirements as described in the image be
 ![##### *Azure Web Server Architecture (Deny Access from Internet)*Azure WebServer Deny Internet to VMs](https://engrcog.com/wp-content/uploads/2020/09/Automate-WebServerno-bastion.jpeg)
 ##### *Azure Web Server Architecture (Deny Access from Internet)*
 
-The following are resources that we would like to be provisioned .
+The following are resources that we would like to be provisioned. Some resources will be created multiple times, as required based on the count of VMs requested by user. Some resources are really just resource parameters and do not need to have a resource tags specified.
+
+Resource| Count | Tags|Comments
+--------------------| ----|-----|--------------- 
+Resource Group	| -| - | Resource Group has already been created, so we load it into TerraForm and reference it
+Virtual Network		| 1| Y | Address Space: 10.0.0.0/16
+Subnet|1 | N |Address Prefix: 10.0.2.0/24
+Network Security Group|1 |Y| Deny Internet Access to VM
+Public IP Address| 1| Y | _Will not be used as the Load Balancer is Internal_
+Load Balancer | 1 | Y | This load balancer is internal and will use Private IP address from the subnet address range above
+Backend Address Pool| 1 | N | This is the backend pool feature of the Load Balancer
+Availability Set| 1 | Y | Availability Set that will be Assigned to VMs
+Network Interface |2 - 5 | Y| Network Interface for VM
+Address Pool NI to LB association| 2  - 5 | N | A feature used to match NI to LB Backend Address Pool
+Get Packer image|1 | N | This is a command to load data (the Packer Image) 
+Linux VM | 2 - 5 | Y | This is the Linux VM Server to be provisioned. _Fixed size: Standard_D2s_v3_
+Managed Disks |2 - 5| Y | 100 GB Data Disk to be attached to VM
+Attach Managed Disks| 2 - 5| N| A feature to attach the Managed Disks to VM
 
 
-### Variables: 
+In the ```main.tf``` file, create one if you haven't already, copy the following code. 
+
+```HCL
+provider  "azurerm" {
+features {}
+}
 
 
-And the following variables will be used.
+# CREATE RESOURCE
+#Resource Already Created on the CLI so we call it
+data  "azurerm_resource_group"  "main" {
+name =  "${var.vmimagerg}"
+}
+
+  
+  
+
+# CREATE VIRTUAL NETWORK AND SUBNETS
+# Virtual Network (VNet)
+resource  "azurerm_virtual_network"  "main" {
+name =  "${var.prefix}-vnet"
+address_space =  ["10.0.0.0/16"]
+location =  var.location
+resource_group_name =  data.azurerm_resource_group.main.name
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+# Backend subnet
+resource  "azurerm_subnet"  "main" {
+name =  "${var.prefix}-vm-subnet"
+resource_group_name =  data.azurerm_resource_group.main.name
+virtual_network_name =  azurerm_virtual_network.main.name
+address_prefixes =  ["10.0.2.0/24"]
+}
+  
+  
+
+# CREATE NETWORK SECURITY GROUP (Deny Access to Internet)
+resource  "azurerm_network_security_group"  "main" {
+name =  "${var.prefix}-nsg"
+location =  data.azurerm_resource_group.main.location
+resource_group_name =  data.azurerm_resource_group.main.name
+security_rule {
+name =  "IN-Allow-only-VM-in-Subnets"
+priority =  4096
+direction =  "Inbound"
+access =  "Deny"
+protocol =  "*"
+source_port_range =  "*"
+destination_port_range =  "*"
+source_address_prefix =  "Internet"
+destination_address_prefix =  "VirtualNetwork"
+}
+
+security_rule {
+name =  "OUT-Allow-only-VM-in-Subnets"
+priority =  4096
+direction =  "Outbound"
+access =  "Deny"
+protocol =  "*"
+source_port_range =  "*"
+destination_port_range =  "*"
+source_address_prefix =  "VirtualNetwork"
+destination_address_prefix =  "Internet"
+}
+
+  
+
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+  
+  
+  
+
+# CREATE LOAD BALANCER (Including PUBLIC IP (or PRIVATE IP) and Backend Address Pool) 
+
+#Public IP (Not needed for this task but will be created)
+resource  "azurerm_public_ip"  "main" {
+name =  "${var.prefix}-public-ip"
+location =  var.location
+resource_group_name =  data.azurerm_resource_group.main.name
+allocation_method =  "Static"
+domain_name_label =  data.azurerm_resource_group.main.name
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+# Load Balancer (LB)
+resource  "azurerm_lb"  "main" {
+name =  "${var.prefix}-lb"
+location =  var.location
+resource_group_name =  data.azurerm_resource_group.main.name
+  
+
+frontend_ip_configuration {
+name =  "${var.prefix}-pip"
+# for Public Load Balancer, use the "public_ip_address_id" for the Public IP resource.
+# public_ip_address_id = azurerm_public_ip.main.id  
+
+# for Internal Load Balancer, use "subnet_id" of the subnet resource (configured as backend) on the VNet resource.
+subnet_id =  azurerm_subnet.main.id
+}
+
+  
+
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+# Backend Address pool
+resource  "azurerm_lb_backend_address_pool"  "main" {
+name =  "${var.prefix}-BackEndAddressPool"
+resource_group_name =  data.azurerm_resource_group.main.name
+loadbalancer_id =  azurerm_lb.main.id
+}
+
+  
+  
+  
+
+# CREATE AVAILABILITY SET
+resource  "azurerm_availability_set"  "main" {
+name =  "${var.prefix}-avset"
+location =  data.azurerm_resource_group.main.location
+resource_group_name =  data.azurerm_resource_group.main.name
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+  
+
+#CREATE NICS and CONNECTION TO LOAD BALANCER BACK END POOL  
+
+# Network Interface (NIC)
+resource  "azurerm_network_interface"  "main" {
+count =  var.vmcount
+name =  "${var.prefix}-nic${count.index+1}"
+location =  data.azurerm_resource_group.main.location
+resource_group_name =  data.azurerm_resource_group.main.name
+  
+
+ip_configuration {
+name =  "${var.prefix}-nic-ipconfig${count.index+1}"
+subnet_id =  azurerm_subnet.main.id
+private_ip_address_allocation =  "Dynamic"
+}
+
+  
+
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+# Address Pool Association from NIC to LB
+
+resource  "azurerm_network_interface_backend_address_pool_association"  "main" {
+count =  var.vmcount
+network_interface_id =  azurerm_network_interface.main[count.index].id
+ip_configuration_name =  "${var.prefix}-nic-ipconfig${count.index+1}"
+backend_address_pool_id =  azurerm_lb_backend_address_pool.main.id
+}
+
+  
+  
+
+# GET IMAGE MADE BY PACKER 
+
+# Assign resource group name of image
+data  "azurerm_resource_group"  "image" {
+name =  "${var.vmimagerg}"
+}
+
+# Get Packer Image
+data  "azurerm_image"  "image" {
+name =  "${var.vmimage}"
+resource_group_name =  data.azurerm_resource_group.image.name
+}
+
+  
+  
+
+# CREATE LINUX VIRTUAL MACHINE (VM)
+resource  "azurerm_linux_virtual_machine"  "main" {
+count =  var.vmcount
+name =  "${var.prefix}-vm${count.index+1}"
+resource_group_name =  data.azurerm_resource_group.main.name
+location =  data.azurerm_resource_group.main.location
+availability_set_id =  azurerm_availability_set.main.id
+size =  "Standard_D2s_v3"
+admin_username =  var.username
+admin_password =  var.password
+disable_password_authentication =  false
+network_interface_ids =  [ azurerm_network_interface.main[count.index].id, ]
+source_image_id =data.azurerm_image.image.id
+
+  
+
+os_disk {
+storage_account_type =  "Standard_LRS"
+caching =  "ReadWrite"
+}
+  
+
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+  
+  
+
+# Managed Disks
+resource  "azurerm_managed_disk"  "main" {
+count =  var.vmcount
+name =  "${var.prefix}-md${count.index+1}"
+location =  data.azurerm_resource_group.main.location
+resource_group_name =  data.azurerm_resource_group.main.name
+storage_account_type =  "Standard_LRS"
+create_option =  "Empty"
+disk_size_gb =  "100"
+tags =  {
+"${var.tagKey}" ="${var.tagValue}"
+}
+}
+
+  
+
+# Attach Managed Disk
+resource  "azurerm_virtual_machine_data_disk_attachment"  "main" {
+count =  var.vmcount
+managed_disk_id =  azurerm_managed_disk.main[count.index].id
+virtual_machine_id =  azurerm_linux_virtual_machine.main[count.index].id
+lun =  "10"
+caching =  "ReadWrite"
+}
+
+```
+
+### Deploying the Infrastructure
+This step must be done only after creating the packer image. If not already created, create it can proceed with this step.
+
+#### Initialization
+In CLI, go to the folder where you have saved the ```main.tf``` and the ```var.tf```, and run the following command, ```terraform init ```:
+```Bash
+\TerraForm> terraform init
+```
+This initializes the TerraForm environment. a ```.terraform``` folder containing is created in the folder with the ```main.tf``` and the ```var.tf``` files which contains necessary plugins.
+
+#### Plan
+Once TerraForm has been initialized, the next step is to run the plan, ```terraform plan``` command. This command will cycle through the HCL TerraForm template and try to identify any errors and also investigate if the necessary resources for deploy are available. We can also get an output of the plan for review purposes. For this project, I will save the out put of the plan to ```solution.plan``` by running the following command:
+_(**Note:** that the user will be requested to enter the number of VMs he wants to deploy when the command is run)_
+```Bash
+\TerraForm> terraform plan -out solution.plan
+```
+
+>*output similar to:*
+```Bash
+\TerraForm> terraform plan -out solution.plan
+var.vmcount
+  Number of VM to create??
+
+  Enter a value: 2
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+data.azurerm_resource_group.image: Refreshing state...
+
+.......<output abbridged for clarity>................
+
+  # azurerm_virtual_network.main will be created
+  + resource "azurerm_virtual_network" "main" {
+      + address_space       = [
+          + "10.0.0.0/16",
+        ]
+      + guid                = (known after apply)
+      + id                  = (known after apply)
+      + location            = "eastus"
+      + name                = "myproject-vnet"
+      + resource_group_name = "myproject-rg"
+      + subnet              = (known after apply)
+      + tags                = {
+          + "test" = "myproject"
+        }
+    }
+
+Plan: 17 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+This plan was saved to: solution.plan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "solution.plan"
+```
+
+As you can see from a snippet of the output, it shows that a number of resource have planned to be added and also informs that the TerraForm plan was saved. Next we apply these actions.
+
+#### Apply
+To apply the actions listed on the plan we run the following command as instructed:
+
+```Bash
+\TerraForm> terraform apply "solution.plan"
+```
+
+This command will go through the process of building the required resources.
+
+We can confirm that the resources have actually been created by running the following command to view the resources in the resource group:
+
+```Bash
+> az resource list --resource-group $rg_name --query "[].{Resource_Name: name, Resource_Type:type}" -o table
+```
+>*output similar to:*
+```Bash
+\TerraForm> az resource list --resource-group $rg_name --query "[].{Resource_Name: name, Resource_Type:type}" -o table
+Resource_Name                                         Resource_Type
+----------------------------------------------------  ---------------------------------------
+myproject-avset                                       Microsoft.Compute/availabilitySets
+myproject-md1                                         Microsoft.Compute/disks
+myproject-md2                                         Microsoft.Compute/disks
+myproject-md3                                         Microsoft.Compute/disks
+myproject-md4                                         Microsoft.Compute/disks
+myproject-md5                                         Microsoft.Compute/disks
+myproject-vm1_disk1_2b4d358831d54b57bd0fbd365c43f71c  Microsoft.Compute/disks
+myproject-vm2_disk1_487bea1a3585497993c924ddefee83e6  Microsoft.Compute/disks
+myproject-vm3_disk1_e04583e236b84f289bb7abc662571497  Microsoft.Compute/disks
+myproject-vm4_disk1_0fc211a3e4f146c0b938b2a80c7b342f  Microsoft.Compute/disks
+myproject-vm5_disk1_cb4479c466574f9b953b340043bd40c4  Microsoft.Compute/disks
+myproject-vmimage                                     Microsoft.Compute/images
+myproject-vm1                                         Microsoft.Compute/virtualMachines
+myproject-vm2                                         Microsoft.Compute/virtualMachines
+myproject-vm3                                         Microsoft.Compute/virtualMachines
+myproject-vm4                                         Microsoft.Compute/virtualMachines
+myproject-vm5                                         Microsoft.Compute/virtualMachines
+myproject-lb                                          Microsoft.Network/loadBalancers
+myproject-nic1                                        Microsoft.Network/networkInterfaces
+myproject-nic2                                        Microsoft.Network/networkInterfaces
+myproject-nic3                                        Microsoft.Network/networkInterfaces
+myproject-nic4                                        Microsoft.Network/networkInterfaces
+myproject-nic5                                        Microsoft.Network/networkInterfaces
+myproject-nsg                                         Microsoft.Network/networkSecurityGroups
+myproject-public-ip                                   Microsoft.Network/publicIPAddresses
+myproject-vnet                                        Microsoft.Network/virtualNetworks
+```
+
+Or by viewing the portal:![Output from TerraForm](https://engrcog.com/wp-content/uploads/2020/09/Portal-Output-scaled.jpg)
+
+
+Once we have confirmed that the resources have been created, we will delete it (to avoid incurring costs).
+
+#### Destroy
+Since TerraForm is a state-based Automation tool it can track the actions it has taken to create resources and reverse them enabling those resources to be destroyed.
+To destroy, we enter the following command:
+```Bash
+
+```
+
+After running, it will verify if we want to delete the resources. Since we want to delete, we type ```yes``` and hit enter to continue with the deletion process.
+```Bash
+Plan: 0 to add, 0 to change, 32 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+```
+>*output similar to:*
+
+```Bash 
+```
+We have successfully destroyed the Resources.
+
+## Summary
+In this project, we learned how to do the following:
+- Basic steps in Building Infrastructure-as-Code 
+- Process client requests on Architecture development.
+- Develop a Packer Template for creating Virtual Machine Images. 
+- Use TerraForm to build Infrastructure while utilizing the Image Created with Packer. 
+- Automate the process of deploying resources. 
+- Create a Managed Disk and Attach it to a VM.
+- Define and assign an Azure Policies, including the use of conditional logic techniques to determine when to Deny or Grant access to resources.
+- Configure a Network Security Group and the use of its policies to restrict or grant access to Network resources on Azure using Inbound and Outbound Rules. 
+- Configure the Load Balancer to work within an Availability set with Virtual Machines, and how to set up a Private IP for utilizing a Load Balancer Internally.
+
+We learned a lot about what Infrastructure-as-Code entails but what we did not do was so Network related tasks like to test Load Balance Process. The reason is because the Virtual Machines did not have access to the Internet. Two reasons why there was no access was because of these Client requirements: Firstly, Deny Internet Access to VMs and secondly, configure the Load Balancer to strictly Balance the traffic between the VMs. - which means no Public IP address for internet access.
+
+The next steps will be the following:
+- Investigate and test ways in which we can access the VMs securely from outside the internet. Currently exploring the latest Azure Offering (Bastion).
+- Create a Windows Server Image following similar steps.
