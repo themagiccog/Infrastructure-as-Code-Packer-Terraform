@@ -1,0 +1,29 @@
+az policy assignment create -n 'tagging_policy' --policy $policy_def --params policy\tagparam.json
+{
+  "description": null,
+  "displayName": null,
+  "enforcementMode": "Default",
+  "id": "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/providers/Microsoft.Authorization/policyAssignments/tagging_policy",
+  "identity": null,
+  "location": null,
+  "metadata": {
+    "createdBy": "330092c2-12f4-4973-bc6d-fc4b52f7fce9",
+    "createdOn": "2020-09-02T17:51:44.890264Z",
+    "updatedBy": null,
+    "updatedOn": null
+  },
+  "name": "tagging_policy",
+  "notScopes": null,
+  "parameters": {
+    "tagName": {
+      "value": "test"
+    }
+  },
+  "policyDefinitionId": "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/providers/Microsoft.Authorization/policyDefinitions/DenyIfNoTagsPolicy",
+  "scope": "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d",
+  "sku": {
+    "name": "A0",
+    "tier": "Free"
+  },
+  "type": "Microsoft.Authorization/policyAssignments"
+}

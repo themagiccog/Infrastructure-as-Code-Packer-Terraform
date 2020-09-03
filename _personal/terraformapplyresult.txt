@@ -1,0 +1,82 @@
+PS D:\AzureProject1\Azure-WebServer-VM-Terraform-Packer\TerraForm> terraform apply "solution.plan"
+azurerm_virtual_network.main: Creating...
+azurerm_managed_disk.main[0]: Creating...
+azurerm_managed_disk.main[1]: Creating...
+azurerm_public_ip.main: Creating...
+azurerm_availability_set.main: Creating...
+azurerm_network_security_group.main: Creating...
+azurerm_managed_disk.main[1]: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/disks/myproject-md2]
+azurerm_managed_disk.main[0]: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/disks/myproject-md1]
+azurerm_availability_set.main: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/availabilitySets/myproject-avset]
+azurerm_network_security_group.main: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/networkSecurityGroups/myproject-nsg]
+azurerm_public_ip.main: Creation complete after 5s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/publicIPAddresses/myproject-public-ip]
+azurerm_virtual_network.main: Still creating... [10s elapsed]
+azurerm_virtual_network.main: Creation complete after 12s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/virtualNetworks/myproject-vnet]
+azurerm_subnet.main: Creating...
+azurerm_subnet.main: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/virtualNetworks/myproject-vnet/subnets/myproject-vm-subnet]
+azurerm_network_interface.main[1]: Creating...
+azurerm_network_interface.main[0]: Creating...
+azurerm_lb.main: Creating...
+azurerm_network_interface.main[0]: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/networkInterfaces/myproject-nic1]
+azurerm_lb.main: Creation complete after 2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/loadBalancers/myproject-lb]
+azurerm_lb_backend_address_pool.main: Creating...
+azurerm_network_interface.main[1]: Creation complete after 3s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/networkInterfaces/myproject-nic2]
+azurerm_linux_virtual_machine.main[0]: Creating...
+azurerm_linux_virtual_machine.main[1]: Creating...
+azurerm_lb_backend_address_pool.main: Creation complete after 1s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/loadBalancers/myproject-lb/backendAddressPools/myproject-BackEndAddressPool]
+azurerm_network_interface_backend_address_pool_association.main[1]: Creating...
+azurerm_network_interface_backend_address_pool_association.main[0]: Creating...
+azurerm_network_interface_backend_address_pool_association.main[1]: Creation complete after 1s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/networkInterfaces/myproject-nic2/ipConfigurations/myproject-nic-ipconfig2|/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/loadBalancers/myproject-lb/backendAddressPools/myproject-BackEndAddressPool]
+azurerm_network_interface_backend_address_pool_association.main[0]: Creation complete after 1s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/networkInterfaces/myproject-nic1/ipConfigurations/myproject-nic-ipconfig1|/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Network/loadBalancers/myproject-lb/backendAddressPools/myproject-BackEndAddressPool]
+azurerm_linux_virtual_machine.main[0]: Still creating... [10s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [10s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [20s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [20s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [30s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [30s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [40s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [40s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [50s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [50s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [1m0s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m0s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m10s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [1m10s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [1m20s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m20s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [1m30s elapsed]
+azurerm_linux_virtual_machine.main[1]: Still creating... [1m30s elapsed]
+azurerm_linux_virtual_machine.main[1]: Creation complete after 1m38s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/virtualMachines/myproject-vm2]
+azurerm_linux_virtual_machine.main[0]: Still creating... [1m40s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [1m50s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [2m0s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [2m10s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [2m20s elapsed]
+azurerm_linux_virtual_machine.main[0]: Still creating... [2m30s elapsed]
+azurerm_linux_virtual_machine.main[0]: Creation complete after 2m38s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/virtualMachines/myproject-vm1]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Creating...
+azurerm_virtual_machine_data_disk_attachment.main[0]: Creating...
+azurerm_virtual_machine_data_disk_attachment.main[0]: Still creating... [10s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Still creating... [10s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[0]: Still creating... [20s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Still creating... [20s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Still creating... [30s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[0]: Still creating... [30s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Still creating... [40s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[0]: Still creating... [40s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Still creating... [50s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[0]: Still creating... [50s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[0]: Still creating... [1m0s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Still creating... [1m0s elapsed]
+azurerm_virtual_machine_data_disk_attachment.main[0]: Creation complete after 1m1s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/virtualMachines/myproject-vm1/dataDisks/myproject-md1]
+azurerm_virtual_machine_data_disk_attachment.main[1]: Creation complete after 1m2s [id=/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg/providers/Microsoft.Compute/virtualMachines/myproject-vm2/dataDisks/myproject-md2]
+
+Apply complete! Resources: 17 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: terraform.tfstate
+PS D:\AzureProject1\Azure-WebServer-VM-Terraform-Packer\TerraForm>

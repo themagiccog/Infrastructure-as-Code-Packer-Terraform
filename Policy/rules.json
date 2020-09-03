@@ -1,0 +1,17 @@
+{
+  "if": {
+    "allof": [
+      {
+        "value": "[resourceGroup().name]",
+        "like": "myproject*"
+      },
+      {
+        "field": "[concat('tags[', parameters('tagName'), ']')]",
+        "exists": "false"
+      }
+    ]
+  },
+  "then": {
+    "effect": "deny"
+  }
+}

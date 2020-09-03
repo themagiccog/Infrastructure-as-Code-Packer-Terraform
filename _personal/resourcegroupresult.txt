@@ -1,0 +1,12 @@
+az group create -n $rg_name -l $rg_location
+{
+  "id": "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/resourceGroups/myproject-rg",
+  "location": "eastus",
+  "managedBy": null,
+  "name": "myproject-rg",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}

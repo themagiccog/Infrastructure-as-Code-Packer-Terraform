@@ -1,0 +1,45 @@
+> az policy definition create -n $policy_def --rules rules.json --params rulesparams.json
+{
+  "description": null,
+  "displayName": null,
+  "id": "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d/providers/Microsoft.Authorization/policyDefinitions/DenyIfNoTagsPolicy",
+  "metadata": {
+    "createdBy": "330092c2-12f4-4973-bc6d-fc4b52f7fce9",
+    "createdOn": "2020-09-02T16:49:29.5984076Z",
+    "updatedBy": null,
+    "updatedOn": null
+  },
+  "mode": "Indexed",
+  "name": "DenyIfNoTagsPolicy",
+  "parameters": {
+    "tagName": {
+      "allowedValues": null,
+      "defaultValue": null,
+      "metadata": {
+        "additionalProperties": null,
+        "description": "Name of the tag, such as 'udacity'",
+        "displayName": "Tag Name"
+      },
+      "type": "String"
+    }
+  },
+  "policyRule": {
+    "if": {
+      "allof": [
+        {
+          "like": "udacity*",
+          "value": "[resourceGroup().name]"
+        },
+        {
+          "exists": "false",
+          "field": "[concat('tags[', parameters('tagName'), ']')]"
+        }
+      ]
+    },
+    "then": {
+      "effect": "deny"
+    }
+  },
+  "policyType": "Custom",
+  "type": "Microsoft.Authorization/policyDefinitions"
+}

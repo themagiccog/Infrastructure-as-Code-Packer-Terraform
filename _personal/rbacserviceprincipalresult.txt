@@ -1,0 +1,8 @@
+az ad sp create-for-rbac --query "{Client_ID: appId, Client_Secret : password, Tenant_ID: tenant}"
+Creating a role assignment under the scope of "/subscriptions/c5b70caf-bdd9-4336-b990-edf1b1ea365d"
+  Retrying role assignment creation: 1/36
+{
+  "Client_ID": "fef4c1e2-6478-4e0e-a3d8-c952ab27a919",
+  "Client_Secret": "0ZM4Ci.H9h7etU.ycFdR_o644CqpO1ro67",
+  "Tenant_ID": "3749b21b-2cfe-4c87-aefb-cf4da141b22d"
+}

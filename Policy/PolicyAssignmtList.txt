@@ -1,0 +1,31 @@
+az policy assignment list
+[
+  {
+    "description": null,
+    "displayName": null,
+    "enforcementMode": "Default",
+    "id": "/subscriptions/xxxxxxxx-e1c5-4434-xxxx-xxxxxxxxxxdd/providers/Microsoft.Authorization/policyAssignments/tagging-policy",
+    "identity": null,
+    "location": null,
+    "metadata": {
+      "createdBy": "3300xxxx-12f4-xxxx-bc6d-xxxxxxxxxxxx",
+      "createdOn": "2020-08-29T04:01:35.7373889Z",
+      "updatedBy": null,
+      "updatedOn": null
+    },
+    "name": "tagging-policy",
+    "notScopes": null,
+    "parameters": {
+      "tagName": {
+        "value": "udacity"
+      }
+    },
+    "policyDefinitionId": "/subscriptions/xxxxxxxx-e1c5-4434-xxxx-xxxxxxxxxxdd/providers/Microsoft.Authorization/policyDefinitions/DenyIfNoTagsPolicy",
+    "scope": "/subscriptions/xxxxxxxx-e1c5-4434-xxxx-xxxxxxxxxxdd",
+    "sku": {
+      "name": "A0",
+      "tier": "Free"
+    },
+    "type": "Microsoft.Authorization/policyAssignments"
+  }
+]
